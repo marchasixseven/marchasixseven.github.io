@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cuando a una la acosan, nos agreden a todas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #241220;
+    --plum: #5b1f4e;
+    --magenta: #b91d73;
+    --paper: #fbf3f2;
+    --paper-dim: #f2e4e6;
+    --line: rgba(36,18,32,0.14);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: inherit; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  .card, p, blockquote, li {
+    overflow-wrap: anywhere;
+  }
+  h1, h2, .display {
+    font-family: 'Fraunces', serif;
+    color: var(--ink);
+    margin: 0;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  nav.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.top .wrap {
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    scrollbar-width: none;
+  }
+  nav.top .wrap::-webkit-scrollbar { display: none; }
+  nav.top a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+    opacity: 0.72;
+  }
+  nav.top a:hover, nav.top a:focus-visible { opacity: 1; color: var(--magenta); }
+  .card {
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px 26px;
+  }
+  .card + .card { margin-top: 16px; }
+  header.hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--plum) 0%, var(--magenta) 130%);
+    color: var(--paper);
+    padding: 72px 0 56px;
+  }
+  header.hero canvas#snow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  header.hero .wrap { position: relative; z-index: 1; }
+  header.hero h1 {
+    color: var(--paper);
+    font-weight: 600;
+    font-size: clamp(2rem, 7vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  header.hero p.sub {
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin-top: 18px;
+    color: rgba(251,243,242,0.88);
+  }
+  .tag-line {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: rgba(251,243,242,0.75);
+    margin-bottom: 22px;
+  }
+  main { padding: 52px 0 40px; }
+  section + section {
+    margin-top: 52px;
+    padding-top: 52px;
+    border-top: 1px solid var(--line);
+  }
+  h2 {
+    font-weight: 500;
+    font-style: italic;
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+    color: var(--plum);
+  }
+  p { max-width: 62ch; }
+  .lede {
+    font-size: 1.12rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--plum);
+    max-width: 58ch;
+  }
+  ul.demands {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  ul.demands li.card {
+    border-left: 3px solid var(--magenta);
+    margin-top: 0;
+  }
+  ul.demands li.card + li.card { margin-top: 16px; }
+  blockquote {
+    margin: 0;
+    padding: 26px 0 26px 24px;
+    border-left: 3px solid var(--plum);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--ink);
+  }
+  .hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-top: 6px;
+  }
+  .hashtags span {
+    font-size: 0.92rem;
+    color: var(--magenta);
+    font-weight: 600;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    header.hero h1, header.hero p.sub, header.hero .tag-line {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 0.7s ease forwards;
+    }
+    header.hero .tag-line { animation-delay: 0s; }
+    header.hero h1 { animation-delay: 0.1s; }
+    header.hero p.sub { animation-delay: 0.22s; }
+
+    section { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    section.in-view { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .whatsapp-link {
+    display: block;
+    width: 100%;
+    margin-top: 22px;
+    padding: 15px 20px;
+    background: var(--magenta);
+    color: var(--paper);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 999px;
+    text-align: center;
+    transition: background 0.5s ease, transform 0.2s ease, box-shadow 0.5s ease;
+  }
+  .whatsapp-link:active { transform: scale(0.97); }
+  .whatsapp-link:hover, .whatsapp-link:focus-visible {
+    background: var(--plum);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .whatsapp-link {
+      animation: pulse-glow 2.6s ease-in-out infinite;
+    }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(185, 29, 115, 0.35); }
+    50% { transform: scale(1.04); box-shadow: 0 0 0 10px rgba(185, 29, 115, 0); }
+  }
+  nav.top a { transition: opacity 0.2s ease, color 0.2s ease; }
+  footer {
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line);
+  }
+  footer p {
+    font-size: 0.85rem;
+    color: rgba(36,18,32,0.55);
+    max-width: 60ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #f4e9ef;
+      --paper: #1b0f18;
+      --paper-dim: #2a1522;
+      --line: rgba(244,233,239,0.14);
+    }
+    body { background: var(--paper); }
+    h2 { color: #e386bd; }
+    .lede { color: #e9a9cf; }
+  }
+  :root[data-theme="dark"] {
+    --ink: #f4e9ef;
+    --paper: #1b0f18;
+    --paper-dim: #2a1522;
+    --line: rgba(244,233,239,0.14);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <span class="tag-line">Posicionamiento · colectivas feministas · septiembre 2026</span>
+    <h1>Cuando a una la acosan por denunciar, nos agreden a todas.</h1>
+    <p class="sub">Un alto al hostigamiento sexual y laboral contra una docente que se atrevió a denunciar. Esta página resume las exigencias públicas de colectivas feministas, sin señalar personas ni instituciones por su nombre.</p>
+  </div>
+</header>
+
+<nav class="top">
+  <div class="wrap">
+    <a href="#denuncia">Lo que se denuncia</a>
+    <a href="#importa">Por qué importa</a>
+    <a href="#exigen">Lo que exigen</a>
+    <a href="#sumarse">Cómo sumarse</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="denuncia">
+    <h2>Lo que se denuncia</h2>
+    <div class="card">
+      <p class="lede" style="margin-top:0">Una maestra de nivel preparatoria fue víctima de acoso sexual por parte de un superior jerárquico. Ante su negativa, el hostigamiento continuó en forma de represalias laborales.</p>
+    </div>
+    <div class="card">
+      <p style="margin-top:0; margin-bottom:0">Tras presentar una denuncia formal ante la autoridad correspondiente, la respuesta institucional no fue investigar al agresor: fue iniciar un procedimiento administrativo en contra de la propia víctima, disfrazando de trámite lo que colectivas feministas señalan como un acto de violencia de género.</p>
+    </div>
+    <div class="card">
+      <p style="margin-top:0; margin-bottom:0">Actualmente existe una carpeta de investigación abierta y medidas de protección solicitadas a nombre de la maestra.</p>
+    </div>
+  </section>
+
+  <section id="importa">
+    <h2>Por qué importa</h2>
+    <div class="card">
+      <p style="margin-top:0">Las organizaciones firmantes advierten que este no es un caso aislado, sino un patrón: cuando una mujer denuncia acoso dentro de una institución, el peso institucional suele recaer sobre quien denuncia, no sobre quien agrede.</p>
+      <blockquote style="margin-bottom:0">"Cuando una maestra es acosada por no ceder, y castigada por denunciar, todas somos agredidas."</blockquote>
+    </div>
+  </section>
+
+  <section id="exigen">
+    <h2>Lo que exigen</h2>
+    <ul class="demands">
+      <li class="card">El cese inmediato de cualquier procedimiento de baja o sanción laboral contra la maestra denunciante.</li>
+      <li class="card">La separación del cargo del presunto agresor mientras dure la investigación, para garantizar que no se repita el hostigamiento.</li>
+      <li class="card">La aplicación real del protocolo institucional de prevención y sanción del acoso sexual, no solo en el papel.</li>
+      <li class="card">Una investigación con perspectiva de género, diligente y sin dilación por parte de la autoridad correspondiente.</li>
+      <li class="card">Medidas cautelares y de protección efectivas para la maestra y quienes la acompañan.</li>
+    </ul>
+  </section>
+
+  <section id="sumarse">
+    <h2>Cómo sumarse</h2>
+    <div class="card">
+      <p style="margin-top:0">Compartir el pronunciamiento, exigir respuesta pública de las autoridades involucradas y acompañar a quienes denuncian en lugar de cuestionarlas son las formas de presión que las colectivas piden sostener.</p>
+      <div class="hashtags">
+        <span>#NiUnaMás</span>
+        <span>#BastaDeProtegerAgresores</span>
+        <span>#JusticiaLaboralConPerspectivaDeGénero</span>
+      </div>
+      <a class="whatsapp-link" href="https://chat.whatsapp.com/BbnqC3ab6gZ8yvKfb5W6Zh" target="_blank" rel="noopener noreferrer">Únete al grupo de WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Resumen elaborado a partir de un pronunciamiento público de colectivas feministas. Se omiten deliberadamente nombres de personas e instituciones.</p>
+</footer>
+
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const sections = document.querySelectorAll('main section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach((s) => observer.observe(s));
+  } else {
+    document.querySelectorAll('main section').forEach((s) => s.classList.add('in-view'));
+  }
+</script>
+<script>
+  (function () {
+    const canvas = document.getElementById('snow');
+    const hero = document.querySelector('header.hero');
+    if (!canvas || !hero) return;
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let flakes = [];
+    let width, height;
+
+    function resize() {
+      width = hero.offsetWidth;
+      height = hero.offsetHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    function makeFlakes() {
+      const count = Math.max(24, Math.round((width * height) / 9000));
+      flakes = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2 + 1,
+        speed: Math.random() * 0.6 + 0.3,
+        drift: Math.random() * 0.6 - 0.3,
+      }));
+    }
+
+    function drawStatic() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'rgba(251,243,242,0.55)';
+      flakes.forEach((f) => {
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    function tick() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'rgba(251,243,242,0.6)';
+      flakes.forEach((f) => {
+        f.y += f.speed;
+        f.x += f.drift;
+        if (f.y > height) { f.y = -4; f.x = Math.random() * width; }
+        if (f.x > width) f.x = 0;
+        if (f.x < 0) f.x = width;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(tick);
+    }
+
+    resize();
+    makeFlakes();
+    if (reduceMotion) {
+      drawStatic();
+    } else {
+      tick();
+    }
+    window.addEventListener('resize', () => {
+      resize();
+      makeFlakes();
+      if (reduceMotion) drawStatic();
+    });
+  })();
+</script>
+</body>
+</html>
